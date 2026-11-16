@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quadra Livre – Aluguel de quadras</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topo">
+    <div class="marca">Quadra Livre</div>
+    <div class="sessao"><span id="quem">Visitante</span><button id="btn-sair" class="sec" hidden>Sair</button></div>
+  </header>
+
+  <nav class="abas" role="tablist">
+    <button class="aba ativa" data-aba="acesso">Acesso</button>
+    <button class="aba" data-aba="quadras">Quadras e valores</button>
+    <button class="aba" data-aba="usuarios">Usuários</button>
+    <button class="aba" data-aba="suporte">Suporte</button>
+    <button class="aba" data-aba="estoque">Estoque</button>
+  </nav>
+
+  <main>
+    <section id="acesso" class="painel ativo">
+      <div class="duas">
+        <form id="f-login" class="caixa">
+          <h2>Entrar</h2>
+          <label>E-mail<input name="email" type="email" required></label>
+          <label>Senha<input name="senha" type="password" required></label>
+          <button>Entrar</button>
+        </form>
+        <form id="f-cadastro" class="caixa">
+          <h2>Criar conta</h2>
+          <label>Nome<input name="nome" required></label>
+          <label>E-mail<input name="email" type="email" required></label>
+          <label>Senha (mín. 4 caracteres)<input name="senha" type="password" minlength="4" required></label>
+          <button>Cadastrar</button>
+          <p class="dica">A primeira conta criada vira administradora.</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="quadras" class="painel">
+      <p class="trava">Entre na sua conta para acessar esta área.</p>
+      <div class="conteudo">
+        <form class="caixa crud" data-res="courts">
+          <h2>Quadra</h2>
+          <input type="hidden" name="id">
+          <label>Nome<input name="nome" required></label>
+          <label>Modalidade
+            <select name="modalidade"><option>Futsal</option><option>Society</option><option>Vôlei</option><option>Basquete</option><option>Tênis</option><option>Beach tennis</option></select>
+          </label>
+          <label>Valor por hora (R$)<input name="preco_hora" type="number" step="0.01" min="0" required></label>
+          <label>Situação<select name="status"><option>Disponível</option><option>Reservada</option><option>Manutenção</option></select></label>
+          <div class="acoes"><button>Salvar</button><button type="button" class="sec cancelar">Limpar</button></div>
+        </form>
+        <div class="tabela"><table data-res="courts">
+          <thead><tr><th data-f="nome">Quadra</th><th data-f="modalidade">Modalidade</th><th data-f="preco_hora">Valor/hora</th><th data-f="status">Situação</th><th></th></tr></thead>
+          <tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="usuarios" class="painel">
+      <p class="trava">Entre na sua conta para acessar esta área.</p>
+      <div class="conteudo">
+        <form class="caixa crud" data-res="users">
+          <h2>Usuário</h2>
+          <input type="hidden" name="id">
+          <label>Nome<input name="nome" required></label>
+          <label>E-mail<input name="email" type="email" required></label>
+          <label>Perfil<select name="perfil"><option>cliente</option><option>admin</option></select></label>
+          <div class="acoes"><button>Salvar</button><button type="button" class="sec cancelar">Limpar</button></div>
+          <p class="dica">Novos usuários entram pela aba Acesso.</p>
+        </form>
+        <div class="tabela"><table data-res="users">
+          <thead><tr><th data-f="nome">Nome</th><th data-f="email">E-mail</th><th data-f="perfil">Perfil</th><th></th></tr></thead>
+          <tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="suporte" class="painel">
+      <p class="trava">Entre na sua conta para acessar esta área.</p>
+      <div class="conteudo">
+        <form class="caixa crud" data-res="tickets">
+          <h2>Chamado</h2>
+          <input type="hidden" name="id">
+          <label>Assunto<input name="assunto" required></label>
+          <label>Mensagem<textarea name="mensagem" rows="4" required></textarea></label>
+          <label>Situação<select name="status"><option>Aberto</option><option>Em andamento</option><option>Resolvido</option></select></label>
+          <div class="acoes"><button>Salvar</button><button type="button" class="sec cancelar">Limpar</button></div>
+        </form>
+        <div class="tabela"><table data-res="tickets">
+          <thead><tr><th data-f="assunto">Assunto</th><th data-f="mensagem">Mensagem</th><th data-f="status">Situação</th><th></th></tr></thead>
+          <tbody></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="estoque" class="painel">
+      <p class="trava">Entre na sua conta para acessar esta área.</p>
+      <div class="conteudo">
+        <form class="caixa crud" data-res="stock">
+          <h2>Item de estoque</h2>
+          <input type="hidden" name="id">
+          <label>Item (bola, rede, colete…)<input name="item" required></label>
+          <label>Quantidade<input name="quantidade" type="number" min="0" required></label>
+          <label>Mínimo desejado<input name="minimo" type="number" min="0" value="0"></label>
+          <div class="acoes"><button>Salvar</button><button type="button" class="sec cancelar">Limpar</button></div>
+        </form>
+        <div class="tabela"><table data-res="stock">
+          <thead><tr><th data-f="item">Item</th><th data-f="quantidade">Qtd.</th><th data-f="minimo">Mínimo</th><th></th></tr></thead>
+          <tbody></tbody></table></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="aviso" role="status" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
